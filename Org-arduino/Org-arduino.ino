@@ -8,16 +8,12 @@
 
 void setup() {
 
-  int i;
+  // Setting input ports
+  for (int i = 0; i < 6; i++) {
+    pinMode(A0 + i, INPUT);
 
-  pinMode(A0, INPUT);
-  pinMode(A1, INPUT);
-  pinMode(A2, INPUT);
-  pinMode(A3, INPUT);
-  pinMode(A4, INPUT);
-  pinMode(A5, INPUT);
-
-  for (i = 2; i < 8; i++) {
+  // Setting output ports
+  for (int i = 2; i < 8; i++) {
     pinMode(i, OUTPUT);
   }
 
@@ -25,6 +21,7 @@ void setup() {
 
 void loop() {
 
+  // Main loop
   for (int pin = 0; pin < 6; pin++) {
     if (digitalRead(A0 + pin) == HIGH) {
       playNote(getNoteFrequency(pin));
@@ -32,6 +29,7 @@ void loop() {
   }
 }
 
+// Returns frequency
 float getNoteFrequency(int noteIndex) {
   switch (noteIndex) {
     case 0: return do;
@@ -44,6 +42,7 @@ float getNoteFrequency(int noteIndex) {
   }
 }
 
+// Giving signal as output
 void playNote(float frequency) {
   float period = 1000.0 / frequency;
   int numSamples = SAMPLE_RATE * period / 1000;
